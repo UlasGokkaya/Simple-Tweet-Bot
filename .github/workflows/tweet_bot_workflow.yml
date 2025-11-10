@@ -1,11 +1,12 @@
 name: Automated Tweet Bot Runner
 
 on:
-  # Ornek zamanlama: Her gun 10:00 TSİ'de (UTC 07:00) calisir
+  # Scheduled run: Runs automatically based on the cron setting.
+  # Example: Runs every day at 07:00 UTC (10:00 AM Turkish Time)
   schedule:
     - cron: '0 7 * * *' 
   
-  # Manuel calistirma izni
+  # Manual trigger permission (Allows running from the Actions UI)
   workflow_dispatch:
 
 jobs:
@@ -19,12 +20,12 @@ jobs:
       - name: Set up Python Environment
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x' # Python surumunuzu guncelleyebilirsiniz
+          python-version: '3.x' # Update your Python version here
 
       - name: Install Dependencies
-        run: pip install -r requirements.txt # veya pip install tweepy
+        run: pip install -r requirements.txt # or pip install tweepy
 
-      # BURASI KRITIK: Secrets'i ortam degiskeni olarak gonderir
+      # CRITICAL: Sends Secrets as environment variables
       - name: Run Automated Bot
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
