@@ -1,45 +1,62 @@
-# 🤖 Generic Automated Twitter (X) Bot
+# 🤖 Generic Automated Tweet Poster (Scheduled Only)
 
-A simple, secure, and scheduled Python bot designed to post automated tweets to X (Twitter). This project prioritizes **API key security** by utilizing **GitHub Secrets** for credentials and **GitHub Actions** for automation and scheduling.
+This project is a clean, secure, and scheduled Python bot designed to post automated text updates to X (Twitter). It is built on **GitHub Actions** and is configured to run **automatically on a fixed schedule** without any manual triggers.
 
 ---
 
 ## 🛡️ Key Features
 
-* **Secure Credential Management:** All sensitive API keys and access tokens are stored securely outside of the code using **GitHub Secrets**.
-* **Automation:** The bot is automatically executed on a schedule using **GitHub Actions**.
-* **Minimalist Design:** Focuses purely on posting a static tweet, making it easy to adapt for more complex content later.
+* **Secure Credentials:** API keys are never stored in the code. They are retrieved securely using **GitHub Secrets**.
+* **Pure Automation:** The bot runs **only** according to the time defined in the workflow schedule (`cron`).
+* **Minimalist Design:** The core logic focuses only on establishing the connection and posting a static tweet.
 
-## 🛠️ Setup and Installation
+## 🚀 Getting Started: Use This Template
 
-### 1. Secure Your Credentials (GitHub Secrets)
+This guide shows you how to securely use this bot with your own API keys.
 
-The bot will **NOT** run unless you set up your API keys in GitHub Secrets.
+### 1. Create Your Own Repository (Start Here!)
 
-1.  Go to your GitHub Repository -> **Settings** -> **Secrets and variables** -> **Actions**.
+To start using the bot, create a clean copy of this template in your own GitHub account:
+
+1.  Go to the original repository page.
+2.  Click the green **"Use this template"** button.
+3.  Name your new repository and click **"Create repository from template"**.
+
+### 2. Secure Your Credentials (The CRITICAL Step)
+
+**Your bot will not run unless you set up your OWN API keys in your new repository's Secrets.**
+
+1.  Go to your new repository -> **Settings** -> **Secrets and variables** -> **Actions**.
 2.  Click **New repository secret**.
-3.  Add the following four secrets exactly as named:
+3.  Add the following four secrets exactly as named, using **YOUR OWN** key values:
     * `TWITTER_API_KEY`
     * `TWITTER_API_SECRET`
     * `TWITTER_ACCESS_TOKEN`
     * `TWITTER_ACCESS_TOKEN_SECRET`
 
-### 2. File Structure
+---
 
-Ensure your repository contains the following files:
-/ (root) ├── .github/ │ └── workflows/ │ └── tweet_bot_workflow.yml # Defines the schedule and job execution ├── auto_tweet.py # The main Python script └── requirements.txt # Lists Python dependencies (e.g., tweepy)
+## 🛠️ Bot Configuration & Customization
 
-### 3. Customization
+### A. Repository File Structure
 
-* **Change Tweet Content:** Modify the `tweet_content` variable inside **`auto_tweet.py`**.
-* **Change Schedule:** Edit the `cron` expression in the **`.github/workflows/tweet_bot_workflow.yml`** file to set a new posting time.
+Your repository must contain the following files and folders for GitHub Actions to work:
 
-## ▶️ Running and Testing
+* **`auto_tweet.py`**: The main Python script (the bot itself).
+* **`requirements.txt`**: Lists Python dependencies (e.g., `tweepy`).
+* **`.github/`** (Folder)
+    * **`workflows/`** (Folder)
+        * **`tweet_bot_workflow.yml`**: Defines the automation schedule and job execution.
 
-The bot is designed to run automatically.
+### B. Customizing Content and Time
 
-To manually trigger a test run:
+* **Change Tweet Content:**
+    Modify the `tweet_content` variable inside **`auto_tweet.py`**.
+* **Adjust Posting Time (Schedule):**
+    The bot runs automatically every day at 07:00 UTC (10:00 AM Turkish Time) by default. To change this time, edit the `cron` expression in the **`.github/workflows/tweet_bot_workflow.yml`** file.
 
-1.  Go to the **Actions** tab in your repository.
-2.  Select the **"Automated Tweet Bot Runner"** workflow.
-3.  Click the **"Run workflow"** button and select the appropriate branch (`main`).
+## ▶️ Running and Verification
+
+The bot runs completely automatically based on the schedule you defined.
+
+* **Verification:** To check if the bot ran successfully, go to the **Actions** tab in your repository and check the workflow history. A green checkmark indicates a successful automated run.
