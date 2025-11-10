@@ -40,13 +40,15 @@ To start using the bot, create a clean copy of this template in your own GitHub 
 
 ### A. Repository File Structure
 
-Your repository must contain the following files and folders for GitHub Actions to work:
+Your repository must strictly follow this structure for GitHub Actions to function correctly. This table outlines the purpose of each file:
 
-* **`auto_tweet.py`**: The main Python script (the bot itself).
-* **`requirements.txt`**: Lists Python dependencies (e.g., `tweepy`).
-* **`.github/`** (Folder)
-    * **`workflows/`** (Folder)
-        * **`tweet_bot_workflow.yml`**: Defines the automation schedule and job execution.
+| File / Folder                | Type   | Description                                                                   |
+| :--------------------------- | :----- | :---------------------------------------------------------------------------- |
+| **`auto_tweet.py`**          | File   | The core Python script containing the tweeting logic.                         |
+| **`requirements.txt`**       | File   | Lists Python dependencies (e.g., `tweepy`).                                   |
+| **`.github/`**               | Folder | Contains configuration files for GitHub services.                             |
+| **`.github/workflows/`**     | Folder | Holds the GitHub Actions workflow files.                                      |
+| **`tweet_bot_workflow.yml`** | File   | Defines the automation schedule (`cron`) and the steps for the job execution. |
 
 ### B. Customizing Content and Time
 
@@ -54,6 +56,8 @@ Your repository must contain the following files and folders for GitHub Actions 
     Modify the `tweet_content` variable inside **`auto_tweet.py`**.
 * **Adjust Posting Time (Schedule):**
     The bot runs automatically every day at 07:00 UTC (10:00 AM Turkish Time) by default. To change this time, edit the `cron` expression in the **`.github/workflows/tweet_bot_workflow.yml`** file.
+
+---
 
 ## ▶️ Running and Verification
 
