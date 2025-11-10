@@ -1,0 +1,35 @@
+name: Automated Tweet Bot Runner
+
+on:
+  # Ornek zamanlama: Her gun 10:00 TSİ'de (UTC 07:00) calisir
+  schedule:
+    - cron: '0 7 * * *' 
+  
+  # Manuel calistirma izni
+  workflow_dispatch:
+
+jobs:
+  run-tweet-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x' # Python surumunuzu guncelleyebilirsiniz
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt # veya pip install tweepy
+
+      # BURASI KRITIK: Secrets'i ortam degiskeni olarak gonderir
+      - name: Run Automated Bot
+        env:
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+        
+        run: python auto_tweet.py
